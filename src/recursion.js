@@ -134,6 +134,13 @@ var sumBelow = function(n) {
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  //1. recursive? yes
+  //2. need the starting number and end number
+  //3. create an array, push x + 1 to the array until x + 1 = y
+  //4. base case, the number being called in recursive function is equal to y
+  //5. aver casse, see #3
+  //6 return array at the end
+
 };
 
 // 7. Compute the exponent of a number.
