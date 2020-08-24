@@ -7,26 +7,128 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  //asking for the product of all the digits that add up to n, one by one
+  //each time, the numbers left get smaller and smaller (recursive check)
+  //Input - a number
+  // O- a number (the result of multiplying all the numbers that increment up to n)
+
+//1. Definitely recursive
+//2. What does each call need to perform the desired action  - the number (which we may decrement or incremenet)
+//3. example 5,    need to do 5 * 4 ,  (5 * 4) * 3,
+  //(5 * 4 * 3) * 2,  (5 * 4 * 3 * 2) * 1
+
+//   n * n - 1
+//   5 * 4   n * factorial(n - 1)   === 4 * factorial(3)
+//   4 * 3
+//   3 * 2
+//   2 * 1
+//   1 * 1
+
+//4 Base case  - when you would end the recurrsion,( or what would start an early return case) what would trigger the bubbling back up?
+  // when the number is equal to one returning 1 // or the number is less than zero returning null
+//5. avergae/ reucrsive case - how do we implement the plan, what does the first call have to do, which every other call will have to do
+
+
+//base case
+  if (n < 0) {
+      return null;
+  }
+  if (n === 0) {
+    return 1;
+  } else {
+      //need to multiply my number by my number minus one, all of them have to do this
+      //so we need to do n * n - 1 for all of them
+    return n * factorial(n - 1);
+  }
+
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+    //want to add the each number and return the sum
+    // know how to do this iterating through the array
+    //how to approach this as recursion? what step do I want to repeat?
+        //the adding of the array at the current index
+  //need the array at the first index (always zero)
+  // what part needs to get smaller?
+    // the array itself needs to be smaller when called by the function again
+    //base case- when the array is empty (has no more values stored in it)
+      //return 0
+    //avg, the array still have a value
+    //store that value
+    //call the function again, but on the array starting at the 1st index  (** Need to add that value to the total so need to retun the result of the function call added to the total)
+  if (array.length === 0) {
+    return 0;
+  } else {
+    var totalSum = array[0];
+    return totalSum += sum(array.slice(1));
+  }
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+  //1 . recursive? yes
+  // 2. starting array, that gets smaller as we go (nested parts)
+  // 3  - start with [1, [2, 3], [[4]], 5]
+  //start with the main array and need to perfomr the same action on all inner arrays
+  //4. base case - when does recursion end? what would tell me when it is over? when there are no more elements in the array, the array is empty
+  // 5. average case,
+   //take the first element in the array, if it is an integer, store it, if it is another array, iteratre through it (when you repeat this, need to make the input to the recursive call smaller)
+   //6. return the final comined total of the calls when it bubbles up
+  if (array.length === 0) {
+    return 0;
+  } else {
+    var totalSum = 0;
+    for (var i = 0; i < array.length; i++) {
+      if (typeof array[i] === 'number') {
+        totalSum += array[i];
+      } else {
+        totalSum += arraySum(array[i]);
+      }
+    }
+  }
+  return totalSum;
 };
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  //1. recursive? yes
+  //2. just need the number - can easily do this without recursion, but practice recursiion here regardless
+  //3. n - 2 === 0 or === 1, t || f
+  //4. base case? when does the recurssion end, or early return, if the number equals 1 or 0 after subtracting 2
+  // 5. recursive action, subtract 2 from number, call recursion again
+  //6, return true or false
+  var n = Math.abs(n);
+  if (n === 0) {
+    return true
+  } else if (n === 1) {
+    return false;
+  } else {
+    return isEven(n - 2);
+  }
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  //1. Recursive? yes
+  //2. elements need to solve for the problem in each call, just the number (need to get all the numbers below it)
+  //3. n = 5, 4 + 3, 3 + 2, 2 + 1 , 1 + 0
+    // n - 1 + n - 1
+  //4. base case - when n is equal to 1 , return 1
+  //5. average case, add the (number - 1) to that number -1
+  //6 when done, we need to return the total
+  //7 edge case if that the integer may be negative
+  if (n === 0) {
+    return 0;
+  } else if (n > 0 ) {
+    return ((n - 1) + sumBelow(n - 1));
+  } else if (n < 0) {
+    return ((n + 1) + sumBelow(n + 1));
+  }
 };
 
 // 6. Get the integers within a range (x, y).
